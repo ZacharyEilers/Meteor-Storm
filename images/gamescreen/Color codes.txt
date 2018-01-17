@@ -1,0 +1,9 @@
+dark blue hsl: 161, 217, 54   rgb: 8, 28, 99
+green rgb: 29, 125, 24
+light green rgb: 92, 255, 142
+
+dark blue rgb(28, 26, 96)
+
+red rgb: 222, 0, 0
+
+shift+ctrl+f
