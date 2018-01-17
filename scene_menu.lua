@@ -1,6 +1,8 @@
 local firebaseDatabase = require "plugin.firebaseDatabase"
 firebaseDatabase.init()
+--I love to eat Pie
 
+--this is the menu scene file
 
 local composer = require( "composer" )
  
