@@ -289,7 +289,7 @@ end
 
 				meteor[meteorCounter].id = meteorCounter
 
-			meteorTravelSpeed = distanceBetween(meteor[meteorCounter], planet)*meteorTravelSpeedFactor*math.random(0.6, 0.9)
+			meteorTravelSpeed = distanceBetween(meteor[meteorCounter], planet)*meteorTravelSpeedFactor--*math.random(0.8, 0.9)
 			
 
 			meteor[meteorCounter]:addEventListener("touch", meteorTouched)
