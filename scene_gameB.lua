@@ -238,6 +238,10 @@ end
 		if(sendMeteorsCounter % meteorSendSpeed == 0) then
 			--send the meteor
 			meteorCounter=meteorCounter+1
+			
+			if(pauseButton~=nil) then
+				pauseButton:toFront();
+			end
 
 			local side = math.random(1, 4)
 

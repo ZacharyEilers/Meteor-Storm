@@ -239,6 +239,10 @@ end
 			--send the meteor
 			meteorCounter=meteorCounter+1
 
+			if(pauseButton~=nil) then
+				pauseButton:toFront();
+			end
+
 			local side = math.random(1, 4)
 
 			meteor[meteorCounter] = display.newImage(sceneGroup, "images/gamescreen/Meteor.png")
