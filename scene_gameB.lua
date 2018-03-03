@@ -217,7 +217,7 @@ local function meteorTouched(event)
 				userStreakText.text = streak
 
 				user.money = user.money + 5
-				moneyText.text = user.money
+				--moneyText.text = user.money
 				if(score > user.best) then
 					user.best = score
 					userBestText.text = "Your Best: "..score
@@ -238,7 +238,7 @@ end
 		if(sendMeteorsCounter % meteorSendSpeed == 0) then
 			--send the meteor
 			meteorCounter=meteorCounter+1
-			
+
 			if(pauseButton~=nil) then
 				pauseButton:toFront();
 			end
@@ -293,7 +293,7 @@ end
 
 				meteor[meteorCounter].id = meteorCounter
 
-			meteorTravelSpeed = distanceBetween(meteor[meteorCounter], planet)*meteorTravelSpeedFactor--*math.random(0.6, 0.9)
+			meteorTravelSpeed = distanceBetween(meteor[meteorCounter], planet)*meteorTravelSpeedFactor--*math.random(0.8, 0.9)
 			
 
 			meteor[meteorCounter]:addEventListener("touch", meteorTouched)
@@ -561,7 +561,7 @@ end
 		    	parent:insert(healthBar)
 		    	parent:insert(miniEarth)
 		    	parent:insert(scoreText)
-		    	parent:insert(moneyText)
+		    	-- parent:insert(moneyText)
 		    	-- parent:insert(shootTimerImage)
 		    	-- parent:insert(shootTimerImageMarker)
 
@@ -647,22 +647,22 @@ end
 	scoreText.x = centerX
 	scoreText.y = topScreen + scoreText.height/4
 
-	moneyText = display.newText(sceneGroup, user.money, 0, 0, font, 32)
-	moneyText.x = leftScreen + moneyText.width/2 + 10
-	moneyText.y = bottomScreen - moneyText.height/3
-	moneyText.anchorX = 0
+	-- moneyText = display.newText(sceneGroup, user.money, 0, 0, font, 32)
+	-- moneyText.x = leftScreen + moneyText.width/2 + 10
+	-- moneyText.y = bottomScreen - moneyText.height/3
+	-- moneyText.anchorX = 0
 
-	coinIcon = display.newImage(sceneGroup, "images/gamescreen/coin.png")
-	coinIcon:scale(0.5, 0.5)
-	coinIcon.x = moneyText.x - coinIcon.width*coinIcon.xScale/2-10
-	coinIcon.y = moneyText.y
+	-- coinIcon = display.newImage(sceneGroup, "images/gamescreen/coin.png")
+	-- coinIcon:scale(0.5, 0.5)
+	-- coinIcon.x = moneyText.x - coinIcon.width*coinIcon.xScale/2-10
+	-- coinIcon.y = moneyText.y
 
-	moneyTextBackground = display.newRoundedRect(sceneGroup, leftScreen+10, moneyText.y, coinIcon.width*coinIcon.xScale+moneyText.width+30, coinIcon.height*coinIcon.yScale*1.3, 10 )
-	moneyTextBackground:setFillColor(0.2)
-	moneyTextBackground.anchorX = 0
-	moneyTextBackground:toFront()
-	coinIcon:toFront()
-	moneyText:toFront()
+	-- moneyTextBackground = display.newRoundedRect(sceneGroup, leftScreen+10, moneyText.y, coinIcon.width*coinIcon.xScale+moneyText.width+30, coinIcon.height*coinIcon.yScale*1.3, 10 )
+	-- moneyTextBackground:setFillColor(0.2)
+	-- moneyTextBackground.anchorX = 0
+	-- moneyTextBackground:toFront()
+	-- coinIcon:toFront()
+	-- moneyText:toFront()
 
 	healthBar = display.newRect(sceneGroup, 0, 0, 44, 16)
 	healthBar.anchorX = 0

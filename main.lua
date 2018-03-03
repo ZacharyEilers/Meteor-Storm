@@ -38,8 +38,6 @@ usernameFont = "Montserrat-Black"
 --some other game constants
 sceneSwitchButtonWaitTime = 100
 
-newUser = false
-
 local composer = require "composer"
 
 loadsave = require "loadsave"
@@ -55,14 +53,14 @@ if(user == nil) then
 	user.streakBest = 0
 	user.vibrate = true
 	user.showBestText = true
-	loadsave.saveTable(user, "user.json")
+	user.newUser = true
 
-	newUser = true
+	loadsave.saveTable(user, "user.json")
 end
 
 -- composer.gotoScene("scene_credits")
 
-if (newUser == false) then
+if (user.newUser == false) then
 	composer.gotoScene("scene_menu")
 else
 	composer.gotoScene("scene_intro")

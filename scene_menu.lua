@@ -46,8 +46,6 @@ local usernameLengthLimit = 30
  -- local welcomeText, welcomeTextLower, enterUsernameTextLimitWarning
 
 
-
-
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -55,9 +53,37 @@ local usernameLengthLimit = 30
 -- create()
 function scene:create( event )
  
+ print("user.newUser: ")
+ print(user.newUser)
+ print("--------------------")
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
     --functions
+
+
+    local function listenerForSetUsername(event)
+            if(event.isError) then
+                native.showAlert( "Could not send Data", event.error, {"Ok"} )
+            else
+                native.showAlert( "Data sent", user.username, {"Ok"} )
+            end
+
+      end
+    -- firebaseDatabase.set("Global Leaderboard", {{username = "Zachary", score = 1}, {username = "Wes", score = 2}}, listenerForSetUsername) 
+    -- firebaseDatabase.set("test 1 - string", "hi", listenerForSetUsername)
+    -- firebaseDatabase.set("test 2 - boolean", true, listenerForSetUsername)
+    -- firebaseDatabase.set("test 2 - interger", 1, listenerForSetUsername)
+    -- firebaseDatabase.set("test 2 - table", {name = "Zachary", score = "500"}, listenerForSetUsername)
+ 
+
+    -- firebaseDatabase.set("testData",{firstEntry = "Hello World"}, function (ev)
+    --         if(ev.isError) then
+    --             native.showAlert( "Could not Upload Data", ev.error , {"Ok"} )
+    --         else
+    --             native.showAlert( "Data send", "" , {"Ok"} )
+    --         end
+    --     end
+    --    )
 
     local function playGame()
         if(creatingUsername == false) then
@@ -161,23 +187,15 @@ function scene:create( event )
     local function submitUsername(e)
 
         if (btn_submitUsername.alpha == 1) then
-
-        local function listenerForSetUsername(event)
-            if(event.isError) then
-                native.showAlert( "Could not send Data", event.error, {"Ok"} )
-            else
-                native.showAlert( "Data sent", user.username, {"Ok"} )
-            end
-
-      end
     
 
         native.setKeyboardFocus(nil)
         user.username = usernameTextBox.text
-        firebaseDatabase.set(user.username, user.best, listenerForSetUsername)
-        firebaseDatabase.set("Global Leaderboard", {{username = "Zachary", score = 1}, {username = "Wes", score = 2}}, listenerForSetUsername) 
+        firebaseDatabase.set(user.username, {user.best, user.streakBest}, listenerForSetUsername)
+        -- firebaseDatabase.set("Global Lederboard", {{username = "Zachary", score = 1}, {username = "Wes", score = 2}}, listenerForSetUsername) 
         clearAll()
-
+        user.newUser = false
+        loadsave.saveTable(user, "user.json")
     end
 
     end
@@ -425,7 +443,7 @@ function scene:create( event )
     transition.to(settingsIcon, {x = leftScreen+30, y = topScreen+30, time = 1000, transition = easing.outCubic})
 
 
-    if(newUser == true) then
+    if(user.newUser == true) then
         creatingUsername = true
         timer.performWithDelay(500, setUpUser)
     end
