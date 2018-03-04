@@ -1,6 +1,8 @@
 --scene_game.lua
 --start the game, send the meteors, add the ability to touch and destroy the meteors, 
---and have the ability to destory the planet
+--and have the ability to destroy the planet
+local firebaseDatabase = require "plugin.firebaseDatabase"
+firebaseDatabase.init()
 
 local composer = require( "composer" )
  
@@ -116,6 +118,15 @@ local function distanceBetween( pos1, pos2 )
 	local factor = { x = pos2.x - pos1.x, y = pos2.y - pos1.y }
 	return math.sqrt( ( factor.x * factor.x ) + ( factor.y * factor.y ) )
 end
+
+ local function listenerForSetUsername(event)
+            if(event.isError) then
+                native.showAlert( "Could not send Data", event.error, {"Ok"} )
+            else
+                native.showAlert( "Data sent", user.username, {"Ok"} )
+            end
+
+      end
 
 
 local function meteorTouched(event)
@@ -396,6 +407,8 @@ end
 
 		gameOverBestScoreText = display.newText(sceneGroup, "Your Best: "..user.best, meteorsDestroyedTextBottom.x, meteorsDestroyedTextBottom.y+40, font, 25)
 	 	
+		local username = user.username
+		firebaseDatabase.update(username, {user.best,  user.streakBest}, listenerForSetUsername)
  end
  	
 

@@ -52,7 +52,7 @@ local usernameLengthLimit = 30
  local composer = require "composer"
 -- create()
 function scene:create( event )
- 
+
  print("user.newUser: ")
  print(user.newUser)
  print("--------------------")
@@ -191,7 +191,7 @@ function scene:create( event )
 
         native.setKeyboardFocus(nil)
         user.username = usernameTextBox.text
-        firebaseDatabase.set(user.username, {user.best, user.streakBest}, listenerForSetUsername)
+        firebaseDatabase.set(user.username, {0, 0}, listenerForSetUsername)
         -- firebaseDatabase.set("Global Lederboard", {{username = "Zachary", score = 1}, {username = "Wes", score = 2}}, listenerForSetUsername) 
         clearAll()
         user.newUser = false
