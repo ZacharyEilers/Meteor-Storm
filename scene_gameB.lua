@@ -1,6 +1,6 @@
 --scene_game.lua
 --start the game, send the meteors, add the ability to touch and destroy the meteors, 
---and have the ability to destory the planet
+--and have the ability to destroy the planet
 
 local composer = require( "composer" )
  
@@ -117,6 +117,15 @@ local function distanceBetween( pos1, pos2 )
 	return math.sqrt( ( factor.x * factor.x ) + ( factor.y * factor.y ) )
 end
 
+ local function listenerForSetUsername(event)
+            if(event.isError) then
+                native.showAlert( "Could not send Data", event.error, {"Ok"} )
+            else
+                native.showAlert( "Data sent", user.username, {"Ok"} )
+            end
+
+      end
+
 
 local function meteorTouched(event)
 	if(shootTimer>= rocketReloadTime) then
@@ -189,9 +198,7 @@ local function meteorTouched(event)
 					explosion[explosionCounter].y = event.target.y
 
 				--sceneGroup:insert(explosion[explosionCounter])
-				if (user.vibrate == true) then
-						system.vibrate()
-				end	
+				
 
 				explosion[explosionCounter]:setSequence("explosion")
 				explosion[explosionCounter]:play()

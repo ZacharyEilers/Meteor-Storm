@@ -2,7 +2,10 @@ local composer = require( "composer" )
 local widget = require "widget"
  
 local scene = composer.newScene()
- 
+local user = loadsave.loadTable("user.json")
+
+user = loadsave.loadTable("user.json")
+
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -32,7 +35,9 @@ function scene:create( event )
 
 
   local function gotoMenu()
-    timer.performWithDelay(sceneSwitchButtonWaitTime, function() composer.gotoScene("scene_menu", {effect = "fade"}) end)
+  user.newUser = false
+  loadsave.saveTable(user, "user.json")
+  timer.performWithDelay(sceneSwitchButtonWaitTime, function() composer.gotoScene("scene_menu", {effect = "fade"}) end)
   end
 
 

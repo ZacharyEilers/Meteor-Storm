@@ -51,10 +51,10 @@ if(user == nil) then
 	user.playsound = true
 	user.best = 0
 	user.streakBest = 0
-	user.vibrate = true
 	user.showBestText = true
 	user.newUser = true
-
+	user.showUserBestText = true
+	user.showBestStreakText = true
 	loadsave.saveTable(user, "user.json")
 end
 
