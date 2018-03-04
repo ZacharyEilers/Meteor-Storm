@@ -1,5 +1,4 @@
-local firebaseDatabase = require "plugin.firebaseDatabase"
-firebaseDatabase.init()
+
 --I love to eat Pie
 
 --this is the menu scene file
@@ -25,24 +24,6 @@ user = loadsave.loadTable("user.json")
  local settingsIcon
 
 
- local usernameTextBoxInTransition = true
-
- local creatingUsername = false
-
- local firstEnter = true
- local creatingUsernameOverlay
-
--- local startAllowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIKLMNOPQRSTUVWXYZ123456789"
-
--- local startsWithAllowedChar = false
-local usernameFitsLengthRequirement = false
-local usernameIsUnique = true
-
-local usernameLengthLimit = 30
-
-   
-
-
  -- local welcomeText, welcomeTextLower, enterUsernameTextLimitWarning
 
 
@@ -53,43 +34,13 @@ local usernameLengthLimit = 30
 -- create()
 function scene:create( event )
 
- print("user.newUser: ")
- print(user.newUser)
- print("--------------------")
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
     --functions
 
-
-    local function listenerForSetUsername(event)
-            if(event.isError) then
-                native.showAlert( "Could not send Data", event.error, {"Ok"} )
-            else
-                native.showAlert( "Data sent", user.username, {"Ok"} )
-            end
-
-      end
-    -- firebaseDatabase.set("Global Leaderboard", {{username = "Zachary", score = 1}, {username = "Wes", score = 2}}, listenerForSetUsername) 
-    -- firebaseDatabase.set("test 1 - string", "hi", listenerForSetUsername)
-    -- firebaseDatabase.set("test 2 - boolean", true, listenerForSetUsername)
-    -- firebaseDatabase.set("test 2 - interger", 1, listenerForSetUsername)
-    -- firebaseDatabase.set("test 2 - table", {name = "Zachary", score = "500"}, listenerForSetUsername)
- 
-
-    -- firebaseDatabase.set("testData",{firstEntry = "Hello World"}, function (ev)
-    --         if(ev.isError) then
-    --             native.showAlert( "Could not Upload Data", ev.error , {"Ok"} )
-    --         else
-    --             native.showAlert( "Data send", "" , {"Ok"} )
-    --         end
-    --     end
-    --    )
-
     local function playGame()
-        if(creatingUsername == false) then
             timer.performWithDelay(sceneSwitchButtonWaitTime, function() composer.gotoScene("scene_gameA", {effect = "slideLeft"}) end)
             return true
-        end
     end
 
 
@@ -127,10 +78,7 @@ function scene:create( event )
     sceneGroup:insert(titleMeteor)
 
     local function onSettingsTouch()
-        if(creatingUsername == false) then
              timer.performWithDelay(sceneSwitchButtonWaitTime, function() composer.gotoScene("scene_settings", {effect = "slideDown"}) end)
-             return true
-         end
     end
 
     local function onSoundTouch(event)
@@ -160,243 +108,7 @@ function scene:create( event )
     end
 
 
-    local function clearAll()
-        display.remove(usernameLengthWarning)
 
-        display.remove(usernameUniqueWarning)
-        display.remove(usernameUniqueWarningBackground)
-
-        display.remove(creatingUsernameWindow)
-        display.remove(enterUsernameText)
-        display.remove(enterUsernameTextBackground)
-
-        display.remove(enterUsernameTextLimitWarning)
-
-        display.remove(usernameUniqueText)
-
-        display.remove(usernameLengthWarningBackground)
-
-        display.remove(btn_submitUsername)
-        display.remove(usernameTextBox)
-
-        display.remove(creatingUsernameOverlay)
-
-        creatingUsername = false
-    end
-
-    local function submitUsername(e)
-
-        if (btn_submitUsername.alpha == 1) then
-    
-
-        native.setKeyboardFocus(nil)
-        user.username = usernameTextBox.text
-        firebaseDatabase.set(user.username, {0, 0}, listenerForSetUsername)
-        -- firebaseDatabase.set("Global Lederboard", {{username = "Zachary", score = 1}, {username = "Wes", score = 2}}, listenerForSetUsername) 
-        clearAll()
-        user.newUser = false
-        loadsave.saveTable(user, "user.json")
-    end
-
-    end
-
-    
-
-    local function setUpUser()
-
-        local function raiseUsernameTextBox(event)
-            if (event.phase == "began" and firstEnter == true) then
-
-                firstEnter = false
-                       local function showUsernameRequirements()
-                            usernameLengthWarningBackground = display.newRoundedRect(sceneGroup, 0, 0, 300, 48, 10)
-                            usernameLengthWarningBackground.x = creatingUsernameWindow.x - creatingUsernameWindow.width/2 + usernameLengthWarningBackground.width/2
-                            usernameLengthWarningBackground.y = creatingUsernameWindow.y - creatingUsernameWindow.height/2 +usernameLengthWarningBackground.height/2
-                            usernameLengthWarningBackground:setFillColor(0.4)
-                            usernameLengthWarningBackground:toFront()
-
-                            usernameLengthWarning = display.newText(sceneGroup, "At least 2 but less than "..usernameLengthLimit.." characters", usernameLengthWarningBackground.x, usernameLengthWarningBackground.y, altFontBold, 50)
-                            usernameLengthWarning.size = resizeTextWidthToFitContainer(usernameLengthWarning, usernameLengthWarningBackground.width, usernameLengthWarning.height)
-
-
-                            usernameUniqueWarningBackground = display.newRoundedRect(sceneGroup, 0, 0, 300, 48, 10)
-                            usernameUniqueWarningBackground.x = creatingUsernameWindow.x - creatingUsernameWindow.width/2 + usernameUniqueWarningBackground.width/2
-                            usernameUniqueWarningBackground.y = creatingUsernameWindow.y + creatingUsernameWindow.height/2 - usernameLengthWarningBackground.height/2
-                            usernameUniqueWarningBackground:setFillColor(0.4)
-                            usernameUniqueWarningBackground:toFront()
-
-                            usernameUniqueWarning = display.newText(sceneGroup, "Is Unique", usernameUniqueWarningBackground.x, usernameUniqueWarningBackground.y, altFontBold, 30)
-                            usernameUniqueWarning.size = resizeTextWidthToFitContainer(usernameUniqueWarning, usernameUniqueWarningBackground.width, usernameUniqueWarningBackground.height)
-
-
-                            -- usernameStartCharWarningBackground = display.newRoundedRect(sceneGroup, 0, 0, 300, 30, 10)
-                            -- usernameStartCharWarningBackground.x = creatingUsernameWindow.x - creatingUsernameWindow.width/2 + usernameStartCharWarningBackground.width/2
-                            -- usernameStartCharWarningBackground.y = creatingUsernameWindow.y + creatingUsernameWindow.height/2 - usernameStartCharWarningBackground.height/2
-                            -- usernameStartCharWarningBackground:setFillColor(0.4)
-                            -- usernameStartCharWarningBackground:toFront()
-
-                            -- usernameStartCharWarning = display.newText(sceneGroup, "Starts with alphanumeric character", usernameStartCharWarningBackground.x, usernameStartCharWarningBackground.y, altFontBold, 25)
-                            -- usernameStartCharWarning.size = resizeTextWidthToFitContainer(usernameStartCharWarning, usernameStartCharWarningBackground.width, usernameStartCharWarningBackground)
-
-
-                            btn_submitUsername = widget.newButton{
-                                width = 728,
-                                height = 233,
-                                defaultFile = "images/menuscreen/btn_submitUsername.png",
-                                overFile = "images/menuscreen/btn_submitUsernameOver.png",
-                                onRelease = submitUsername
-                            }
-
-                            btn_submitUsername:scale(0.17, 0.17)
-                            btn_submitUsername.x = usernameLengthWarning.x + usernameLengthWarning.width/2 + btn_submitUsername.width/2*btn_submitUsername.xScale + 5
-                            btn_submitUsername.y = creatingUsernameWindow.y - creatingUsernameWindow.height/2 +btn_submitUsername.height/2*btn_submitUsername.yScale + 5 
-                            btn_submitUsername.alpha = 0.3
-                       end
-
-                      
-                   transition.to(usernameTextBox, { y =  topScreen + usernameTextBox.height + 30, time = 1000, transition = easing.inOutCubic, onComplete = function()
-                       usernameTextBoxInTransition = false
-                   end})
-
-                   transition.to(enterUsernameText, {y = topScreen+30, time = 1000, transition = easing.inOutCubic})
-                   enterUsernameText:setFillColor(1)
-
-                   enterUsernameTextBackground = display.newRoundedRect(sceneGroup, 0, topScreen + 30, creatingUsernameWindow.width, enterUsernameText.height+50, 10)
-                   enterUsernameTextBackground.x = leftScreen - enterUsernameTextBackground.width
-                    
-                    transition.to(enterUsernameTextBackground, {x = centerX, time = 1000, transition = easing.inOutCubic, onComplete = showUsernameRequirements})
-                    enterUsernameTextBackground:setFillColor(0.4)
-
-                    enterUsernameText:toFront()
-
-                    transition.to(creatingUsernameWindow, {y = topScreen + usernameTextBox.height + 30 + 80, height = 100, time = 1000, transition = easing.inOutCubic})
-
-                   display.remove(welcomeText)
-                   display.remove(welcomeTextLower)
-                   display.remove(usernameUniqueText)
-                   display.remove(enterUsernameTextLimitWarning)
-
-
-                elseif (event.phase == "editing") then
-
-
-                    print(usernameTextBoxInTransition)
-                if(usernameTextBoxInTransition == false) then
-
-                    --check length
-                    if(usernameTextBox.text:len()>1 and usernameTextBox.text:len()<usernameLengthLimit) then
-                        usernameFitsLengthRequirement = true
-                        usernameLengthWarningBackground:setFillColor(0, 0.6, 0)
-                    else
-                        usernameFitsLengthRequirement = false
-                        usernameLengthWarningBackground:setFillColor(0.6, 0, 0)
-                    end
-
-
-
-                    --check starting character
-                    -- for i=1, startAllowedChars:len() do
-                    --     if(usernameTextBox.text:sub(1, 1) == startAllowedChars:sub(i, i)) then
-                    --         startsWithAllowedChar = true
-                    --         usernameStartCharWarningBackground:setFillColor(0, 0.6, 0)
-                    --         break
-                    --     elseif (usernameTextBox.text == "") then
-                    --         startsWithAllowedChar = false
-                    --         usernameStartCharWarningBackground:setFillColor(0.4)
-                    --     else
-                    --         startsWithAllowedChar = false
-                    --         usernameStartCharWarningBackground:setFillColor(0.6, 0, 0)
-                    --     end
-                    -- end
-
-                    if(usernameFitsLengthRequirement == true and usernameIsUnique == true) then
-                        btn_submitUsername.alpha = 1
-                    else
-                        btn_submitUsername.alpha = 0.7
-                    end
-                end
-
-                elseif (event.phase == "submitted") then
-
-                native.setKeyboardFocus(nil)
-
-            end
-
-        end
-
-        local function showTextBox()
-
-            usernameUniqueText = display.newText(sceneGroup, "Your username is unique to you; \nno one else can have the same username", centerX, centerY+10, altFontBold, 18)
-                usernameUniqueText:setFillColor(0.2)
-
-            usernameTextBox = native.newTextField(centerX, centerY + usernameUniqueText.height + 20, creatingUsernameWindow.width/1.2, 40)
-            usernameTextBox:setReturnKey("done")
-            usernameTextBox.placeholder = "Username"
-            usernameTextBox.size = 20
-            usernameTextBox:addEventListener("userInput", raiseUsernameTextBox)
-            usernameTextBox.autocorrectionType = "UITextAutocorrectionTypeNo"
-            usernameTextBox.spellCheckingType = "UITextSpellCheckingTypeNo"
-            usernameTextBox.font = native.newFont(usernameFont, 20)
-            usernameTextBox:resizeHeightToFitFont()
-            sceneGroup:insert(usernameTextBox)
-
-
-            enterUsernameTextLimitWarning = display.newText(sceneGroup, "Your username cannot be longer than "..usernameLengthLimit.." characters and must be at least 2 characters", centerX, 0, creatingUsernameWindow.width - 20, 0, altFontBold, 20)
-            enterUsernameTextLimitWarning.y = usernameTextBox.y + enterUsernameTextLimitWarning.height*1.2
-            enterUsernameTextLimitWarning:setFillColor(0.6, 0, 0)
-            sceneGroup:insert(enterUsernameTextLimitWarning)
-        end
-
-        local function showWelcomeText()
-            --add some text to welcome and guide the new user
-            welcomeText = display.newText(sceneGroup, "Hi", centerX, 0, font, 48)
-            welcomeText.y = topScreen + welcomeText.height/4
-            welcomeText.alpha = 0
-            sceneGroup:insert(welcomeText)
-
-            welcomeTextLower = display.newText(sceneGroup, "Let's get you set up with Operation Meteor Storm", centerX, 0, font, 20)
-
-            --auto-format the text to the appropriate screen size
-            welcomeTextLower.size = resizeTextWidthToFitContainer(welcomeTextLower, contentWidth, contentHeight)
-
-            welcomeTextLower.y = welcomeText.y + welcomeTextLower.height 
-            welcomeTextLower.alpha = 0
-            sceneGroup:insert(welcomeTextLower)
-
-            enterUsernameText = display.newText(sceneGroup, "Please enter your username", centerX, 0, altFontBold, 25)
-            enterUsernameText.y = creatingUsernameWindow.y -creatingUsernameWindow.height/2+ enterUsernameText.height/1.5
-            enterUsernameText:setFillColor(0.2)
-            enterUsernameText.alpha = 0
-            sceneGroup:insert(enterUsernameText)
-
-            transition.to(welcomeText, {alpha = 1, time = 1000, onComplete = function()
-                transition.to(welcomeTextLower, {alpha = 1, time = 1000, onComplete = function ()
-                transition.to(enterUsernameText, {alpha = 1, time = 750, onComplete = showTextBox})
-                end})
-            end}) 
-
-        end
-        -- darken the rest of the menuscreen to focus on the text box
-          creatingUsernameOverlay = display.newRect(sceneGroup, centerX, centerY, contentWidth*1.5, contentHeight*1.5)
-        creatingUsernameOverlay:setFillColor(0)
-        creatingUsernameOverlay.alpha = 0.9
-        sceneGroup:insert(creatingUsernameOverlay)
-
-
-        --create a window for the text box to reside in
-        creatingUsernameWindow = display.newRoundedRect(sceneGroup, leftScreen, centerY, contentWidth/1.1, contentHeight/1.5, 10)
-        creatingUsernameWindow.x = leftScreen - creatingUsernameWindow.width
-        creatingUsernameWindow.y = centerY + creatingUsernameWindow.height/5
-        creatingUsernameWindow.alpha = 0
-        creatingUsernameWindow:setFillColor(0.8)
-        sceneGroup:insert(creatingUsernameWindow)
-
-        --showTextBox()
-
-        transition.to(creatingUsernameWindow, {alpha = 1, x = centerX, time = 1200, transition = easing.inOutExpo, onComplete = showWelcomeText})
-    
-
-    end
 
     btn_soundToggle = widget.newButton{
         width = 50,
@@ -443,10 +155,6 @@ function scene:create( event )
     transition.to(settingsIcon, {x = leftScreen+30, y = topScreen+30, time = 1000, transition = easing.outCubic})
 
 
-    if(user.newUser == true) then
-        creatingUsername = true
-        timer.performWithDelay(500, setUpUser)
-    end
 
     
        

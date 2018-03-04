@@ -1,8 +1,6 @@
 --scene_game.lua
 --start the game, send the meteors, add the ability to touch and destroy the meteors, 
 --and have the ability to destroy the planet
-local firebaseDatabase = require "plugin.firebaseDatabase"
-firebaseDatabase.init()
 
 local composer = require( "composer" )
  
@@ -407,8 +405,6 @@ end
 
 		gameOverBestScoreText = display.newText(sceneGroup, "Your Best: "..user.best, meteorsDestroyedTextBottom.x, meteorsDestroyedTextBottom.y+40, font, 25)
 	 	
-		local username = user.username
-		firebaseDatabase.update(username, {user.best,  user.streakBest}, listenerForSetUsername)
  end
  	
 
