@@ -223,11 +223,16 @@ local function meteorTouched(event)
 				streak = streak + 1
 				userStreakText.text = streak
 
+				if(streak > user.streakBest) then
+					user.streakBest = score
+					bestStreakText.text = "Best: "..score
+				end
+
 				user.money = user.money + 5
 				--moneyText.text = user.money
 				if(score > user.best) then
 					user.best = score
-					userBestText.text = "Your Best: "..score
+					userBestText.text = "Best Score: "..score
 				end
 
 				loadsave.saveTable(user, "user.json")
@@ -273,14 +278,14 @@ end
 
 			if(side == 1) then --top
 				
-					meteor[meteorCounter].x = math.random(leftScreen, rightScreen)
+					meteor[meteorCounter].x = math.random(leftScreen, rightScreen-70)
 					meteor[meteorCounter].y  = topScreen
 					targetX = centerX
 					targetY = centerY - (planet.height/2) - (meteor[meteorCounter].height)/3
 				elseif(side==2) then --right
 
 					meteor[meteorCounter].x = rightScreen
-					meteor[meteorCounter].y = math.random(topScreen, bottomScreen)
+					meteor[meteorCounter].y = math.random(topScreen+70, bottomScreen)
 					
 					targetX = centerX + (planet.width/2) + (meteor[meteorCounter].width)/3
 					targetY = centerY
@@ -703,13 +708,14 @@ end
 	pauseButton:scale(0.05, 0.05)
 	pauseButton:addEventListener("touch", onPauseTouch)
 
-	userBestText = display.newText(sceneGroup, "Your best: "..user.best, 0, 0, font, 25)
+	userBestText = display.newText(sceneGroup, "Best Score: "..user.best, 0, 0, font, 25)
 	userBestText.x = scoreText.x; userBestText.y = scoreText.y + userBestText.height/1.5
+
 
 	userStreakText = display.newText(sceneGroup, streak, 0, 0, font, 30)
 	userStreakText.anchorX = 0
-	userStreakText.x = scoreText.x- scoreText.width*1.75 -40
-	userStreakText.y = scoreText.y
+	userStreakText.x = leftScreen + userStreakText.width*3
+	userStreakText.y = topScreen+userStreakText.height/2
 	-- userStreakText:setFillColor(0)
 
 	streakIcon = display.newImage(sceneGroup, "images/gamescreen/flame.png")
@@ -721,8 +727,14 @@ end
 	streakBackground:setFillColor(0.2)
 	streakBackground.anchorX = 0.5
 
+	bestStreakText = display.newText(sceneGroup, "Best: "..user.streakBest,  0, 0, font, 22)
+	bestStreakText.x = streakBackground.x; bestStreakText.y = streakBackground.y + bestStreakText.height;
+
+
+
 	parent:insert(streakIcon)
 	parent:insert(userStreakText)
+	parent:insert(bestStreakText)
 
 
 
