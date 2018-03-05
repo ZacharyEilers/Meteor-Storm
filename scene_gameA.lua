@@ -278,14 +278,14 @@ end
 
 			if(side == 1) then --top
 				
-					meteor[meteorCounter].x = math.random(leftScreen, rightScreen)
+					meteor[meteorCounter].x = math.random(leftScreen, rightScreen-70)
 					meteor[meteorCounter].y  = topScreen
 					targetX = centerX
 					targetY = centerY - (planet.height/2) - (meteor[meteorCounter].height)/3
 				elseif(side==2) then --right
 
 					meteor[meteorCounter].x = rightScreen
-					meteor[meteorCounter].y = math.random(topScreen, bottomScreen)
+					meteor[meteorCounter].y = math.random(topScreen+70, bottomScreen)
 					
 					targetX = centerX + (planet.width/2) + (meteor[meteorCounter].width)/3
 					targetY = centerY
@@ -711,12 +711,6 @@ end
 	userBestText = display.newText(sceneGroup, "Best Score: "..user.best, 0, 0, font, 25)
 	userBestText.x = scoreText.x; userBestText.y = scoreText.y + userBestText.height/1.5
 
-	if(user.showUserBestText == false) then
-			userBestText.alpha = 0
-		else
-			userBestText.alpha = 1
-	end
-	print("best: "..tostring(user.showUserBestText))
 
 	userStreakText = display.newText(sceneGroup, streak, 0, 0, font, 30)
 	userStreakText.anchorX = 0
@@ -736,12 +730,6 @@ end
 	bestStreakText = display.newText(sceneGroup, "Best: "..user.streakBest,  0, 0, font, 22)
 	bestStreakText.x = streakBackground.x; bestStreakText.y = streakBackground.y + bestStreakText.height;
 
-		if(user.showBestStreakText == false) then
-				bestStreakText.alpha = 0
-			else
-				bestStreakText.alpha = 1
-		end
-		print("streak: "..tostring(user.showBestStreakText))
 
 
 	parent:insert(streakIcon)

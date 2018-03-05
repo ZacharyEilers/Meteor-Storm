@@ -53,8 +53,6 @@ if(user == nil) then
 	user.streakBest = 0
 	user.showBestText = true
 	user.newUser = true
-	user.showUserBestText = true
-	user.showBestStreakText = true
 	loadsave.saveTable(user, "user.json")
 end
 
