@@ -176,70 +176,70 @@ function scene:create( event )
 
     --coin icon
 
-     coinIcon = display.newImage(sceneGroup, "images/gamescreen/coin.png")
-    coinIcon.x = earthIcon.x
-    coinIcon.y = fireIconText.y + coinIcon.height
-    coinIcon:scale(0.75, 0.75)
-    scrollView:insert(coinIcon)
+    --  coinIcon = display.newImage(sceneGroup, "images/gamescreen/coin.png")
+    -- coinIcon.x = earthIcon.x
+    -- coinIcon.y = fireIconText.y + coinIcon.height
+    -- coinIcon:scale(0.75, 0.75)
+    -- scrollView:insert(coinIcon)
 
-    coinIconText = display.newText(sceneGroup, "Icon made by Smashicons from flaticon.com", 0, coinIcon.y+40, altFont, 20)
-    coinIconText:setFillColor(0)
-    coinIconText.x = centerX
-    scrollView:insert(coinIconText)
+    -- coinIconText = display.newText(sceneGroup, "Icon made by Smashicons from flaticon.com", 0, coinIcon.y+40, altFont, 20)
+    -- coinIconText:setFillColor(0)
+    -- coinIconText.x = centerX
+    -- scrollView:insert(coinIconText)
 
 
-     btn_smashIcons2 = widget.newButton {
-        width = 585,
-        height = 106,
-        defaultFile = "images/settingsScreen/creditsScreen/smashicon.png",
-        overFile = "images/settingsScreen/creditsScreen/smashiconOver.png",
-        onRelease = Smashicons
-    }
-    btn_smashIcons2.x = centerX-btn_smashIcons2.width*0.25/2; btn_smashIcons2.y = coinIcon.y
-    btn_smashIcons2:scale(0.25, 0.25)
-    sceneGroup:insert(btn_smashIcons2)
-    scrollView:insert(btn_smashIcons2)
+    --  btn_smashIcons2 = widget.newButton {
+    --     width = 585,
+    --     height = 106,
+    --     defaultFile = "images/settingsScreen/creditsScreen/smashicon.png",
+    --     overFile = "images/settingsScreen/creditsScreen/smashiconOver.png",
+    --     onRelease = Smashicons
+    -- }
+    -- btn_smashIcons2.x = centerX-btn_smashIcons2.width*0.25/2; btn_smashIcons2.y = coinIcon.y
+    -- btn_smashIcons2:scale(0.25, 0.25)
+    -- sceneGroup:insert(btn_smashIcons2)
+    -- scrollView:insert(btn_smashIcons2)
 
-    btn_flaticon3 = widget.newButton {
-        width = 585,
-        height = 106,
-        defaultFile = "images/settingsScreen/creditsScreen/flaticon.png",
-        overFile = "images/settingsScreen/creditsScreen/flaticonOver.png",
-        onRelease = flaticon
-    }
-    btn_flaticon3.x = btn_smashIcons.x + btn_smashIcons2.width*0.25/2+btn_flaticon3.width*0.25/1.5; btn_flaticon3.y = coinIcon.y
-    btn_flaticon3:scale(0.25, 0.25)
-    sceneGroup:insert(btn_flaticon3)
-    scrollView:insert(btn_flaticon3)
+    -- btn_flaticon3 = widget.newButton {
+    --     width = 585,
+    --     height = 106,
+    --     defaultFile = "images/settingsScreen/creditsScreen/flaticon.png",
+    --     overFile = "images/settingsScreen/creditsScreen/flaticonOver.png",
+    --     onRelease = flaticon
+    -- }
+    -- btn_flaticon3.x = btn_smashIcons.x + btn_smashIcons2.width*0.25/2+btn_flaticon3.width*0.25/1.5; btn_flaticon3.y = coinIcon.y
+    -- btn_flaticon3:scale(0.25, 0.25)
+    -- sceneGroup:insert(btn_flaticon3)
+    -- scrollView:insert(btn_flaticon3)
 
 
     --Monteserrat Font Licenses
 
-    montSerratFontTitle = display.newText(sceneGroup, "Monteserrat Font", 0, 0, usernameFont, 30)
-    montSerratFontTitle:setFillColor(0)
-    montSerratFontTitle.x = centerX
-    montSerratFontTitle.y = coinIconText.y +50
-    scrollView:insert(montSerratFontTitle)
+    -- montSerratFontTitle = display.newText(sceneGroup, "Monteserrat Font", 0, 0, usernameFont, 30)
+    -- montSerratFontTitle:setFillColor(0)
+    -- montSerratFontTitle.x = centerX
+    -- montSerratFontTitle.y = coinIconText.y +50
+    -- scrollView:insert(montSerratFontTitle)
 
-    btn_montserratLicense = widget.newButton{
-        width = 820,
-        height = 170,
-        defaultFile = "images/settingsScreen/creditsScreen/btn_montserratLicense.png",
-        overFile = "images/settingsScreen/creditsScreen/btn_montserratLicenseOver.png",
-        onRelease = gotoOFL
-    }
+    -- btn_montserratLicense = widget.newButton{
+    --     width = 820,
+    --     height = 170,
+    --     defaultFile = "images/settingsScreen/creditsScreen/btn_montserratLicense.png",
+    --     overFile = "images/settingsScreen/creditsScreen/btn_montserratLicenseOver.png",
+    --     onRelease = gotoOFL
+    -- }
 
-    btn_montserratLicense:scale(0.25, 0.25)
-    btn_montserratLicense.x = centerX; btn_montserratLicense.y = montSerratFontTitle.y + btn_montserratLicense.height*btn_montserratLicense.yScale
-    sceneGroup:insert(btn_montserratLicense)    
-    scrollView:insert(btn_montserratLicense)
+    -- btn_montserratLicense:scale(0.25, 0.25)
+    -- btn_montserratLicense.x = centerX; btn_montserratLicense.y = montSerratFontTitle.y + btn_montserratLicense.height*btn_montserratLicense.yScale
+    -- sceneGroup:insert(btn_montserratLicense)    
+    -- scrollView:insert(btn_montserratLicense)
 
     --Bungee License
 
     bungeeFontTitle = display.newText(sceneGroup, "Bungee Font", 0, 0, font, 30)
     bungeeFontTitle:setFillColor(0)
     bungeeFontTitle.x = centerX
-    bungeeFontTitle.y = btn_montserratLicense.y + btn_montserratLicense.height*btn_montserratLicense.yScale + 40
+    bungeeFontTitle.y = fireIconText.y + fireIconText.height*fireIconText.yScale + 40
     scrollView:insert(bungeeFontTitle)
 
     btn_bungeeLicense = widget.newButton{

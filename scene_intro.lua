@@ -30,7 +30,7 @@ function scene:create( event )
     background = display.newRect(sceneGroup, centerX, centerY, contentWidth*1.5, contentHeight*1.5)
     background:setFillColor(0)
 
-    text  = display.newText(sceneGroup, "A large group of previously undetected meteors are heading towards Earth. It would take only a few of them to wipe out all life on Earth forever.  You have been tasked with destroying these meteors one by one before they reach Earth. Your headquarters, where you will locate and fire missiles to destroy the meteors, is equipped with state-of-the art technology that allows you to view the entire globe and coordinate missile launches anywhere in the world. Good luck!", centerX, centerY, contentWidth/1.1, contentHeight/1.1, altFont, 21)
+    text  = display.newText(sceneGroup, "A large group of previously undetected meteors are heading towards Earth. It would take only a few of them to wipe out all life on Earth forever.  You have been tasked with destroying these meteors one by one before they reach Earth. Your headquarters, where you will locate and fire missiles to destroy the meteors, is equipped with state-of-the-art technology that allows you to view the entire globe and coordinate missile launches anywhere in the world. Good luck!", centerX, centerY, contentWidth/1.1, contentHeight/1.1, altFont, 21)
   --  text.width = contentWidth/1.2; text.height = contentHeight/2;
 
 

@@ -64,10 +64,10 @@ function scene:create( event )
    
 
     titleText = display.newText(sceneGroup, "Mete    r Storm", 0, 0, font, 50)
-    titleText.x = leftScreen - titleText.width; titleText.y = topScreen + titleText.height/1.5
+    titleText.x = leftScreen - titleText.width; titleText.y = topScreen + titleText.height/2
 
-    upperTitleText = display.newText(sceneGroup, "Operation", 0, 0, font, 30)
-    upperTitleText.x = rightScreen + upperTitleText.width; upperTitleText.y = topScreen + upperTitleText.height/2;
+    -- upperTitleText = display.newText(sceneGroup, "Operation", 0, 0, font, 30)
+    -- upperTitleText.x = rightScreen + upperTitleText.width; upperTitleText.y = topScreen + upperTitleText.height/2;
 
 
 
@@ -138,7 +138,7 @@ function scene:create( event )
     btn_soundToggle.x = rightScreen + btn_soundToggle.width*5
     btn_soundToggle.y = topScreen+btn_soundToggle.height/1.5
 
-    transition.to(upperTitleText, {x = centerX, time = 1000, transition =easing.outCubic})
+    -- transition.to(upperTitleText, {x = centerX, time = 1000, transition =easing.outCubic})
 
     transition.to(btn_play, {y = centerY+btn_play.height/15, alpha = 1, time = 1000, transition = easing.outCubic})
 

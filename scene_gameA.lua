@@ -18,8 +18,8 @@ user = loadsave.loadTable("user.json")
 local background
 local meteor = {}
 local meteorCounter = 0
-local meteorSendSpeed = 60
-local meteorMaxSendSpeed = 40
+local meteorSendSpeed = 40
+local meteorMaxSendSpeed = 20
 local meteorIncrementSendSpeed = 0.5
 local sendMeteorsListener
 local meteorFlashTrans
@@ -27,7 +27,7 @@ local meteorFlashTrans
 local meteorTravelSpeed
 
 local meteorTravelSpeedFactor = 60 --higher is slower
-local meteorIncrementTravelSpeedFactor = 0.2
+local meteorIncrementTravelSpeedFactor = 0.3
 local meteorMaxTravelSpeedFactor = 30
 local prevId = {}
 
@@ -374,8 +374,9 @@ end
             overFile = "images/gamescreen/btn_goToMenuOver.png",
             onEvent = returnToMenu
    		}
+   		btn_goToMenu.alpha = 0
+  	 	btn_goToMenu:scale(0.01, 0.01)
 
-   		btn_goToMenu:scale(0.25, 0.25)
    		btn_goToMenu.x = centerX - btn_goToMenu.width/5
    		btn_goToMenu.y = centerY + btn_goToMenu.height/4
    		sceneGroup:insert(btn_goToMenu)
@@ -388,11 +389,17 @@ end
    		overFile = "images/gamescreen/btn_playAgainOver.png",
    		onEvent = playAgain
   	 	}
+  	 	btn_playAgain.alpha = 0
+  	 	btn_playAgain:scale(0.01, 0.01)
 
-  	 	btn_playAgain:scale(0.25, 0.25)
   	 	btn_playAgain.x = centerX + btn_playAgain.width/10
   	 	btn_playAgain.y = centerY + btn_playAgain.height/4
   	 	sceneGroup:insert(btn_playAgain)
+
+  	 	timer.performWithDelay(500, function()
+  	 		  	 transition.to( btn_playAgain, {alpha = 1, xScale = 0.25, yScale = 0.25, time = 500, transition = easing.outCubic})
+  	 		  	 transition.to(btn_goToMenu, {alpha = 1, xScale = 0.25, yScale = 0.25, time = 500, transition = easing.outCubic})
+  	 	end)
 
   	 	meteorsDestroyedTextTop = display.newText(sceneGroup, "You destroyed", 0, 0, font, 20)
 		meteorsDestroyedTextTop.x = centerX - meteorsDestroyedTextTop.width/1.3
@@ -447,7 +454,8 @@ end
 
 		if(health >= 1) then
 			health = health-1
-			healthBar.xScale = healthBar.xScale - 1/startingHealth
+			-- healthBar.xScale = healthBar.xScale - 1/startingHealth
+			healthBar:scale(healthBar.xScale - 1/startingHealth, healthBar.yScale)
 		else 
 
 
