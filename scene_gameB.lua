@@ -19,7 +19,7 @@ local background
 local meteor = {}
 local meteorCounter = 0
 local meteorSendSpeed = 40
-local meteorMaxSendSpeed = 20
+local meteorMaxSendSpeed = 17
 local meteorIncrementSendSpeed = 0.5
 local sendMeteorsListener
 local meteorFlashTrans
@@ -340,7 +340,7 @@ local function returnToMenu()
 end
 
 local function playAgain()
-	timer.performWithDelay(sceneSwitchButtonWaitTime, function() composer.gotoScene("scene_gameB", {effect = "slideLeft"}) end)
+	timer.performWithDelay(sceneSwitchButtonWaitTime, function() composer.gotoScene("scene_gameA", {effect = "slideLeft"}) end)
 end
 
    onGameOver = function()
