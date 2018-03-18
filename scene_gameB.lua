@@ -224,8 +224,8 @@ local function meteorTouched(event)
 				userStreakText.text = streak
 
 				if(streak > user.streakBest) then
-					user.streakBest = score
-					bestStreakText.text = "Best: "..score
+					user.streakBest = streak
+					bestStreakText.text = "Best: "..streak
 				end
 
 				user.money = user.money + 5
@@ -454,8 +454,10 @@ end
 
 		if(health >= 1) then
 			health = health-1
-			-- healthBar.xScale = healthBar.xScale - 1/startingHealth
-			healthBar:scale(healthBar.xScale - 1/startingHealth, healthBar.yScale)
+			if(healthBar.xScale~=nil) then
+				healthBar.xScale = healthBar.xScale - 1/startingHealth
+				-- healthBar:scale(healthBar.xScale - 1/startingHealth, healthBar.yScale)
+			end
 		else 
 
 
